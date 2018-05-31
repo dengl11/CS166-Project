@@ -4,6 +4,8 @@
 # (e.g. deleteEdits('abc') returns ['bc', 'ac', 'ab'])
 # get_edits calls all four functions and returns the complete list of edit distance 1 words
 
+# This originally was written for Word objects defined by another file, but is edited to work for strings.
+
 ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
 
 def deleteEdits(word):
