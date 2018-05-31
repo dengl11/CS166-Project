@@ -59,9 +59,10 @@ def replaceEdits(word):
     # Try replacing every position in word with every char in alphabet
     for i in range(0, len(word)):
       for char in ALPHABET:
-        #The corrected word replaces character i with char
-        correction = "%s%s%s" % (word[0:i], char, word[i+1:])
-        ret.append(correction)
+        if(char != word[i]):
+            #The corrected word replaces character i with char
+            correction = "%s%s%s" % (word[0:i], char, word[i+1:])
+            ret.append(correction)
     return ret
 
 def get_edits(word):
