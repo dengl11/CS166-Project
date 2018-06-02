@@ -2,7 +2,7 @@
 
 def read_dict(path):
     with open(path) as f:
-        return [w for w in f.readlines()]
+        return [w.rstrip() for w in f.readlines()]
 
 
 def read_train_data():
