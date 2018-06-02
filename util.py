@@ -1,10 +1,17 @@
 # utility script
+import datetime, time
+import pickle
 
 def read_dict(path):
+    ans = []
     with open(path) as f:
-        return [w.rstrip() for w in f.readlines()]
-
-
+        for w in f.readlines():
+            w = w.rstrip().lower() 
+            # filter out non-alphabetic words
+            if (not w.isalpha()): continue
+            ans.append(w)
+    return ans 
+       
 def read_train_data():
     pairs = []
     with open("./data/training_set/edit1s.txt") as f:
@@ -17,3 +24,29 @@ def read_train_data():
 def get_web_dictionary():
     return read_dict("/usr/share/dict/web2")
 
+
+def print_now():
+    ts = time.time()
+    print(datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'))
+
+
+def save_data(data, path):
+    """save a data to path
+    Args:
+        data: 
+        path: 
+
+    Return: 
+    """
+    with open(path, "wb") as f:
+        pickle.dump(data, f)
+
+def load_data(path):
+    """
+    Args:
+        path: 
+
+    Return: 
+    """
+    with open(path, "rb") as f:
+        return pickle.load(f)

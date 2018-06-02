@@ -7,6 +7,7 @@
 import string
 from pprint import pprint 
 from collections import defaultdict
+from util import * 
 # lib: https://github.com/caleb531/automata
 from automata.fa.dfa import *
 from automata.fa.nfa import *
@@ -116,9 +117,13 @@ class Trie:
         # pprint(states)
         # pprint(transitions)
         # pprint(final_states)
+        print("DFA Start")
+        print_now()
         nfa = NFA(states = states,\
                    transitions = transitions,\
                    initial_state = initial_state,\
                    final_states = final_states,\
                    input_symbols = set(ALPHABETS))
+        print("DFA Done")
+        print_now()
         return DFA.from_nfa(nfa)
