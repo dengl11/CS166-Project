@@ -1,6 +1,12 @@
 # utility script
+   
+import string
 import datetime, time
 import pickle
+
+ALPHABETS = list(string.ascii_lowercase)
+EMPTY_STATE = "{}"
+
 
 def read_dict(path):
     ans = []

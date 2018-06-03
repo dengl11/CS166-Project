@@ -4,7 +4,6 @@
 # - https://stackoverflow.com/questions/11015320/how-to-create-a-trie-in-python\
 #       ?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 
-import string
 from pprint import pprint 
 from collections import defaultdict
 from util import * 
@@ -14,7 +13,6 @@ from automata.fa.nfa import *
 
 
 TERMINATE = "$"
-ALPHABETS = list(string.ascii_lowercase)
 
 # class TrieNode:
     # ch = ''
@@ -95,12 +93,12 @@ class Trie:
 
         Return: a DFA object 
         """
-        states = {'q{}'.format(i) for i in range(self.n_nodes)}
-        initial_state = "q0"
+        initial_state = "^"
+        states = {initial_state}
         final_states = set()
         transitions = defaultdict(dict)
 
-        queue = [("q0", self.root)]
+        queue = [(initial_state, self.root)]
         state = 0
         while queue:
             k, children = queue.pop(0)
@@ -109,21 +107,22 @@ class Trie:
                 
             for c, cc in children.items():
                 if (c == TERMINATE): continue 
-                state += 1
-                c_state = "q{}".format(state)
+                c_state = k + c
+                states.add(c_state)
                 transitions[k][c] = {c_state}
                 queue.append((c_state, cc))
 
         # pprint(states)
         # pprint(transitions)
         # pprint(final_states)
-        print("DFA Start")
-        print_now()
+        # print("DFA Start")
+        # print_now()
         nfa = NFA(states = states,\
                    transitions = transitions,\
                    initial_state = initial_state,\
                    final_states = final_states,\
                    input_symbols = set(ALPHABETS))
-        print("DFA Done")
-        print_now()
+        # print("DFA Done")
+        # print_now()
         return DFA.from_nfa(nfa)
+
