@@ -14,15 +14,6 @@ from automata.fa.nfa import *
 
 TERMINATE = "$"
 
-# class TrieNode:
-    # ch = ''
-    # accepted = False  # is terminating node for a word 
-    # children = []   
-
-    # def __init__(self, ch, accepted = False):
-        # self.ch = ch
-        # self.accepted = accepted 
-
         
 class Trie:
     root = {}
@@ -45,7 +36,6 @@ class Trie:
                     self.n_nodes += 1
                     curr[ch] = {}
                 # accepting? 
-                # print("word: {} | ch: {} | i: {}".format(w, ch, i))
                 if i == len(w) - 1:
                     curr[ch][TERMINATE] = True 
                 curr = curr[ch]
@@ -112,17 +102,52 @@ class Trie:
                 transitions[k][c] = {c_state}
                 queue.append((c_state, cc))
 
-        # pprint(states)
-        # pprint(transitions)
-        # pprint(final_states)
-        # print("DFA Start")
-        # print_now()
         nfa = NFA(states = states,\
                    transitions = transitions,\
                    initial_state = initial_state,\
                    final_states = final_states,\
                    input_symbols = set(ALPHABETS))
-        # print("DFA Done")
-        # print_now()
         return DFA.from_nfa(nfa)
+
+    def is_terminal(self, node):
+        """return true if ndoe is terminal
+        Args:
+            node: {}
+
+        Return: 
+        """
+        if len(node) > 1: return False
+        if TERMINATE in node: return True 
+        return TERMINATE in list(node.values())[0]
+
+
+    def to_patria_trie(self):
+        """compress into a patria trie
+        Return: 
+        """
+        ans = defaultdict(dict) 
+        # [(parent, key, node)]
+        stack = list((ans, k, v) for (k, v) in self.root.items()) 
+        while stack:
+            parent, key, node = stack.pop()
+            if (key == TERMINATE): 
+                parent[key] = node
+                continue 
+
+            acc_key = key  # accumulative key
+            while len(node.keys()) == 1 and TERMINATE not in node: # silly and non-terminal node
+                k, node = node.popitem()
+                acc_key += k 
+            
+            # pop old key from parent
+            parent.pop(key, None)
+
+            parent[acc_key] = node 
+            for k, v in node.items():
+                if k == TERMINATE: continue 
+                stack.append((node, k, v))
+        self.root = ans 
+
+
+
 
