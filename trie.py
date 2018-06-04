@@ -4,6 +4,7 @@
 # - https://stackoverflow.com/questions/11015320/how-to-create-a-trie-in-python\
 #       ?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 
+import sys
 from pprint import pprint 
 from collections import defaultdict
 from util import * 
@@ -14,11 +15,18 @@ from automata.fa.nfa import *
 
 TERMINATE = "$"
 
+def corpus2trie(corpus_path):
+    """
+    return {word} as a Trie object
+    """
+    words = read_dict(corpus_path)
+    return Trie(words)
         
 class Trie:
-    root = {}
-    n_words = 0
-    n_nodes = 1 
+    root        = {}
+    n_words     = 0
+    n_nodes     = 1 
+    is_patricia = False 
 
     def __init__(self, words):
         """construct a trie for a dictionary of words
@@ -109,23 +117,22 @@ class Trie:
                    input_symbols = set(ALPHABETS))
         return DFA.from_nfa(nfa)
 
-    def is_terminal(self, node):
-        """return true if ndoe is terminal
+    def accept(self, node):
+        """return true if ndoe is accepted 
         Args:
             node: {}
 
         Return: 
         """
-        if len(node) > 1: return False
-        if TERMINATE in node: return True 
-        return TERMINATE in list(node.values())[0]
+        return TERMINATE in node
 
 
-    def to_patria_trie(self):
+    def to_patria_trie(self, verbose = True):
         """compress into a patria trie
         Return: 
         """
         ans = defaultdict(dict) 
+        self.n_nodes = 0
         # [(parent, key, node)]
         stack = list((ans, k, v) for (k, v) in self.root.items()) 
         while stack:
@@ -143,10 +150,15 @@ class Trie:
             parent.pop(key, None)
 
             parent[acc_key] = node 
+            self.n_nodes += 1
             for k, v in node.items():
                 if k == TERMINATE: continue 
                 stack.append((node, k, v))
+        if verbose:
+            print("Trie Compressed: {} -> {}".format(sys.getsizeof(self.root), sys.getsizeof(ans)))
         self.root = ans 
+        self.is_patricia = True 
+
 
 
 

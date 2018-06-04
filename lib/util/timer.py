@@ -53,4 +53,4 @@ class Timer(object):
         Return: 
         """
         elapsed = self.stop(key)
-        print("{:8}:  {:.3f} ms".format(key, elapsed))
+        print("{:16}:  {:.3f} ms".format(key, elapsed))

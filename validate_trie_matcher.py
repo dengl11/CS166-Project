@@ -1,42 +1,49 @@
-from lev_dfa_gen import *
-from naive_gen import *
+from lev_trie_gen import *
 from lib.util.timer import Timer  
+from naive_gen import * 
+
 DEBUG = False
 # DEBUG = True
 
 if DEBUG: # if debug, user a toy dataset 
-    corpus_dfa = corpus2dfa(corpus_path)
-    corpus_ht  = corpus2set(corpus_path) 
+    corpus_trie  = corpus2trie(corpus_path) 
+    corpus_ht    = corpus2set(corpus_path) 
 else:
-    corpus_dfa = load_data(corpus_dfa_path)
+    corpus_trie = load_data(corpus_trie_path)
     corpus_ht  = load_data(corpus_hash_path)
 
+print(corpus_trie.stats())
 # max edit edistance
 k = 3
 
+timer = Timer()
+
 # tests = ["food"]
-tests = ["beautiful", "bad", "heart"]
+tests = ["beautiful", "bad", "heart", "universty"]
 ks    = list(range(1, k + 1))
 
 naive_generator = NaiveGenerator(corpus_ht)
-lev_generator   = LevTrieDFAGenerator(corpus_dfa)
 
-timer = Timer()
+lev_generator   = LevTrieGenerator(corpus_trie)
+
 
 for w in tests:
     for k in ks:
         print("\nvalidating [{:10}] on k = {}".format(w, k))
-        timer.start("Naive")
-        naive_result = naive_generator.gen_candidates(w, k)
-        timer.stop_and_report("Naive")
-
         timer.start("Lev")
         lev_result = lev_generator.gen_candidates(w, k)
         timer.stop_and_report("Lev")
 
+
+        timer.start("Naive")
+        naive_result = naive_generator.gen_candidates(w, k)
+        timer.stop_and_report("Naive")
+
+        
         naive_result = set(naive_result)
         lev_result = set(lev_result)
         assert(naive_result == lev_result)
+
 
         # print("Naive: {}".format(naive_result))
         # print("Lev:   {}".format(lev_result))

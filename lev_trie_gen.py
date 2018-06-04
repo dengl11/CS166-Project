@@ -7,11 +7,11 @@ from config import *
 
 class LevTrieGenerator(SimWordGenerator):
     """
-    Levenshtein Automation + Trie Automation 
+    Levenshtein Automation + Trie 
     """ 
 
-    def __init__(self, corpus_dfa = None):
-        self.corpus_dfa = corpus_dfa or load_data(corpus_dfa_path)
+    def __init__(self, corpus_trie = None):
+        self.corpus_trie = corpus_trie or corpus2trie(corpus_dfa_path)
 
     def gen_candidates(self, w, k):
         """get candidates of w within edit distance of k
@@ -21,4 +21,4 @@ class LevTrieGenerator(SimWordGenerator):
         Return: 
         """
         lev_dfa = construct_levenshten(w, k)
-        return list(match(self.corpus_dfa, lev_dfa))
+        return list(match_lv_trie(lev_dfa, self.corpus_trie))
