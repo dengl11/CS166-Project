@@ -1,4 +1,4 @@
-from lev_gen import *
+from lev_dfa_gen import *
 from naive_gen import *
 from lib.util.timer import Timer  
 DEBUG = False

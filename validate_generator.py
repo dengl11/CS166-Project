@@ -17,7 +17,7 @@ else:
 # max edit edistance
 k = 1
 
-words = read_dict("data/corpus/0.txt") # corpus for picking out random words
+words = read_dict(corpus_path) # corpus for picking out random words
 def generate_tests(num_tests, edit_probability = 0.0):
     # num_tests: int that specifies the number of test words to generate
     # edit_probability: for each word, the probability that we'll do an edit on it
