@@ -26,7 +26,7 @@ weighted_cost = [1, 2, 3]
 
 k = 5
 
-tests = ["beautiful", "bad", "heart"]
+tests = ["beautiful", "bad", "heart", "bok"]
 ks    = list(range(1, k + 1))
 
 timer = Timer()

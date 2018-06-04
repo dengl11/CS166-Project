@@ -107,16 +107,19 @@ def walk_dfa(dfa, w):
 
     Return: 
     """
-    print("-------------------")
+    width = 40
+    h     = 2
     s = dfa.initial_state
     acc_s = ""
-    for ch in w:
-        print()
-        print("before s: {}".format(s))
+    for i, ch in enumerate(w):
+        print("-" * width)
         s = dfa.transitions[s][ch]
         acc_s += ch 
-        print("acc_s: {}".format(acc_s))
-        print("after s: {}".format(s))
-        print("Accepted: {}".format(s in dfa.final_states))
-        print(dfa.final_states)
-    print("-------------------")
+        print("| current string: {}".format(acc_s))
+        print("| current state:  {}".format(s))
+        print("| Accepted:       {}".format(s in dfa.final_states))
+        print("-" * width)
+        if i < (len(w) - 1):
+            for j in range(h//2): print((" " * (width//2)) + "|" + (" " * (width//2)))
+            print((" " * (width//2)) + w[i+1]) 
+            for j in range(h//2): print((" " * (width//2)) + "|" + (" " * (width//2)))

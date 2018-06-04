@@ -70,5 +70,5 @@ class WeighedLevTrieGenerator(LevTrieGenerator):
         Return: 
         """
         lev_dfa = self.construct_levenshten(w, k)
-        # walk_dfa(lev_dfa, "foood")
+        walk_dfa(lev_dfa, "foood")
         return list(match(self.corpus_dfa, lev_dfa))
