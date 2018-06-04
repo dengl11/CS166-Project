@@ -32,6 +32,7 @@ purple = '#6a3d9a'
 red = '#ab162a'
 pink = '#cf5246'
 orange = '#fdbf6f'
+black = "#000000"
 
 yellow = '#FFD92F'
 

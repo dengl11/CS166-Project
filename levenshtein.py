@@ -16,7 +16,7 @@ def corpus2dfa(corpus_path):
     trie = Trie(words)
     return trie.to_DFA()
 
-def construct_levenshten(word, k):
+def construct_levenshten_nfa(word, k):
     """
     Args:
         word:
@@ -53,5 +53,9 @@ def construct_levenshten(word, k):
               initial_state = m[(0, 0)],\
               final_states = {m[(n, j)] for j in range(k + 1)},\
               input_symbols = set(ALPHABETS))
-    return DFA.from_nfa(nfa)
+    return nfa 
 
+
+def construct_levenshten(word, k):
+    nfa = construct_levenshten_nfa(word, k)
+    return DFA.from_nfa(nfa)

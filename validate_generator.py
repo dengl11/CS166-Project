@@ -1,8 +1,9 @@
 from lev_dfa_gen import *
 from naive_gen import *
 from lib.util.timer import Timer  
-DEBUG = False
-# DEBUG = True
+from demo.draw import *
+# DEBUG = False
+DEBUG = True
 
 if DEBUG: # if debug, user a toy dataset 
     corpus_dfa = corpus2dfa(corpus_path)
@@ -12,14 +13,15 @@ else:
     corpus_ht  = load_data(corpus_hash_path)
 
 # max edit edistance
-k = 3
+k = 1
 
-# tests = ["food"]
-tests = ["beautiful", "bad", "heart"]
+tests = ["food"]
+# tests = ["beautiful", "bad", "heart"]
 ks    = list(range(1, k + 1))
 
 naive_generator = NaiveGenerator(corpus_ht)
 lev_generator   = LevTrieDFAGenerator(corpus_dfa)
+
 
 timer = Timer()
 
