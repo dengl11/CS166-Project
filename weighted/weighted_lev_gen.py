@@ -1,15 +1,16 @@
-import sys
-sys.path.append("../")
+import sys, os
+
+sys.path.append(os.path.join(os.path.abspath(__file__), "../"))
 from util import *
 from trie import *
 from levenshtein import * 
 from match import * 
 from generator import * 
 from config import * 
-from lev_gen import *   
+from lev_dfa_gen import *   
 from weighted_gen import *   
 
-class WeighedLevTrieGenerator(LevTrieGenerator):
+class WeighedLevTrieGenerator(LevTrieDFAGenerator):
 
     def __init__(self, costs, corpus_dfa = None):
         self.corpus_dfa = corpus_dfa or load_data(corpus_dfa_path)
@@ -70,5 +71,4 @@ class WeighedLevTrieGenerator(LevTrieGenerator):
         Return: 
         """
         lev_dfa = self.construct_levenshten(w, k)
-        walk_dfa(lev_dfa, "foood")
         return list(match(self.corpus_dfa, lev_dfa))

@@ -10,6 +10,7 @@ import pandas as pd
 import matplotlib
 import warnings 
 warnings.filterwarnings("ignore")
+from matplotlib.ticker import MaxNLocator
 
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -489,3 +490,15 @@ def sns_clustermap(df, **kwargs):
 
     if save_path: ax.get_figure().savefig(save_path)
     return ax 
+
+def force_axis_integer(ax, x = True):
+    """
+    Args:
+        ax: 
+
+    Return: 
+    """
+    if x:
+        ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+    else:
+        ax.yaxis.set_major_locator(MaxNLocator(integer=True))
