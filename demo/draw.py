@@ -27,9 +27,7 @@ def draw_lev_nfa(word, k, **kargs):
             style =  "filled" if (i, j) in accepted else ""
             color =  green if (i, j) in accepted else black
             f.node(str((i, j)), color = color, penwidth = penwidth, style=style, fontsize = "20", shape = shape, pos = "{},{}!".format(i*10, j*10))
-    # for i in range(k+1): 
-        # f.node(str((n, i)))
-    # other states
+    # transitions 
     f.attr('node', shape='circle')
     for i in range(n + 1):
         for j in range(k + 1):
@@ -41,7 +39,7 @@ def draw_lev_nfa(word, k, **kargs):
                 f.edge(str((i, j)), str((i + 1, j + 1)), label="*", fontsize="24", color=light_purple, penwidth="2")
                 f.edge(str((i, j)), str((i + 1, j + 1)), label="<&#949;>", fontsize = "24", color="red", penwidth="2")
     f.format = kargs.get("format", "svg")
-    f.rotate = 90
+    f.rotate = 180
     f.render()
 
 

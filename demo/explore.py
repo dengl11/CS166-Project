@@ -1,4 +1,6 @@
+#! /usr/local/bin/python3
 from render import *
+import webbrowser
 
 
 print("Welcome to CS166-Levenshtein Automation Walker !")
@@ -13,8 +15,11 @@ while 1:
     words = user_input.split()
     if len(words) != 3:
         print("Invalid input >_<")
+        continue 
     w, test_w, k = words
+    output = render(w, test_w, int(k))
     print("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
-    render(w, test_w, int(k))
-    print("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+    webbrowser.open('file://' + os.path.realpath(output))
     print()
+    print()
+    

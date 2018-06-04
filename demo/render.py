@@ -1,11 +1,21 @@
 from draw import * 
 import sys
 sys.path.append("../")
+from config import * 
 from util import * 
-from levenshtein import * 
+from lev_trie_gen import * 
 import string
+from lib.util.timer import * 
 
 NOT_FOUDN = "http://shorelineseafoodinc.com/assets/images/404.png"
+
+timer = Timer()
+corpus_trie  = load_data(corpus_trie_path) 
+generater = LevTrieGenerator(corpus_trie)
+print("Using Corpus:")
+print("----------------------")
+print(corpus_trie.stats())
+print() 
 
 def render(w, test_w, k):
     """
@@ -29,9 +39,18 @@ def render(w, test_w, k):
 
 
     output = "{}_{}_k_{}.html".format(w, test_w, k)
-    html = html_template.substitute(body = body_html, lev_w = w, test_w = test_w)
+
+    timer.start("Generating Candidates for {} Takes".format(w))
+    print("--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+    candidates = generater.gen_candidates(w, k)
+    timer.stop_and_report("Generating Candidates for {} Takes".format(w))
+    can_str = ", ".join(sorted(candidates))
+
+    html = html_template.substitute(body = body_html, lev_w = w, test_w = "{} (k = {})".format(test_w, k), candidates = can_str)
     with open(output, "w") as f:
         f.write(html)
+
     print("{} rendered!".format(output))
+    
     return output 
 
