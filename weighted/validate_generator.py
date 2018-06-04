@@ -25,7 +25,7 @@ timer = Timer()
 
 for w in tests:
     for k in ks:
-        print("\nvalidating [{:10}] on k = {}".format(w, k))
+        print("\nvalidating {} on k = {}".format(w, k))
         timer.start("Naive")
         naive_result = naive_generator.gen_candidates(w, k)
         timer.stop_and_report("Naive")

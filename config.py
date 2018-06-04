@@ -1,7 +1,12 @@
+import os 
 
+repo_path = os.path.dirname(os.path.abspath(__file__))
 
-corpus_hash_path = "./data/pickle/web2_hash.pkl" 
-corpus_dfa_path = "./data/pickle/web2.pkl"
+# [c_insert, c_delete, c_subs]
+weighted_cost = [1, 2, 3]
 
-corpus_path = "./data/toy/food"
+corpus_hash_path = os.path.join(repo_path, "./data/pickle/web2_hash.pkl" )
+corpus_dfa_path = os.path.join(repo_path, "./data/pickle/web2.pkl")
+
+corpus_path = os.path.join(repo_path, "./data/toy/food")
 # corpus_path = "./data/toy/boat"

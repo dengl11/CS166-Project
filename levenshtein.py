@@ -41,12 +41,13 @@ def construct_levenshten(word, k):
             up        = m[(i    , e + 1)] 
             if right:
                 top_right = m[(i + 1, e + 1)]
-                transitions[curr][""].add(top_right)  # subsititutions -  epsilon: diagonal arrow 
+                transitions[curr][""].add(top_right)  # deletions -  epsilon: diagonal arrow 
             for ch in ALPHABETS:
-                # insertions: upward arrow + deletions: diagonal arrow 
+                # insertions: upward arrow + subsitutions: diagonal arrow 
                 transitions[curr][ch].add(up)
                 if (top_right):
                     transitions[curr][ch].add(top_right)
+
     nfa = NFA(states = set(m.values()),\
               transitions = transitions,\
               initial_state = m[(0, 0)],\
