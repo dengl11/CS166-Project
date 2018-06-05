@@ -67,5 +67,7 @@ def render_dfa_walker(lev_w, w, k):
         draw_lev_nfa(lev_w, k, fname = fname, accepted = next_states)
         outputs.append((acc_s, fname))
         step += 1
+    if s not in dfa.final_states:
+        outputs.append(("Failure", None))
     return outputs
 

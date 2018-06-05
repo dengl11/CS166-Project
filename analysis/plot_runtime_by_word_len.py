@@ -22,7 +22,7 @@ ax.bar(lens - w/2, naive, width = w, color=blue, align='center')
 ax.bar(lens + w/2, lev, width = w, color=light_purple, align='center')
 
 plt.xticks(lens, words, rotation = 45)
-ax.set_ylabel("runtime: log$(1 + t)$ /ms", fontsize=12)
+ax.set_ylabel("runtime: t / ms", fontsize=12)
 ax.set_xlabel("Testing Word", fontsize=12)
 
 plt.legend(["Naive", "Levenshtein"])

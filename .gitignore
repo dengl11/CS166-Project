@@ -1,4 +1,9 @@
 *.swp
+*.png
+demo/nfa*
+demo/*dfa*
+weighted/*dfa*
+*.svg
 *.swo
 *.pyc
 __pycache__

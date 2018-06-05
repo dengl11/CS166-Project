@@ -6,7 +6,7 @@ import webbrowser
 print("Welcome to CS166-Levenshtein Automation Walker !")
 print("-------------------------------------------------")
 while 1:
-    print("Type your word for Levenshtein, test word and max edit distance like: <Lev_W> <Test_Word> k")
+    print("Type your word for Levenshtein, test word and max edit distance like: <Levenshtein_Word> <Test_Word> k")
     print("Your input: ")
     user_input = input()
     if (user_input == "exit"): 

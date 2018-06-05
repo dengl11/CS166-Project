@@ -1,75 +1,53 @@
 import sys
 sys.path.append("../")
 from lib.util.plotter import *
-from weighted.weighted_lev_gen import *
+from weighted_lev_gen import *
 
 from graphviz import Digraph
 
 # [c_insert, c_delete, c_subs]
-weighted_cost = [3, 4, 2]
+weighted_cost = [1, 2, 3]
 
-w = "foood"
+w = "data"
 k = 3
 
-corpus_dfa = corpus2dfa(corpus_path)
-weighted_lev = WeighedLevTrieGenerator(weighted_cost, corpus_dfa)
-weighted_lev.gen_candidates(w, k)
-
-def draw_lev_nfa(word, k, **kargs):
+def draw_weighted_lev_nfa(word, k, **kargs):
     """
     Args:
         NFA:
 
     Return:
     """
+    lev = WeighedLevTrieGenerator(weighted_cost, {})
+    nfa = lev.construct_levenshten_nfa(word, k)
     f = Digraph('finite_state_machine', filename=kargs.get("fname", "nfa"))
     f.attr(rankdir='LR', size='5')
     n = len(word)
-    accepted = kargs.get("accepted", {})
-    # accepted states
-    for i in range(n + 1):
-        for j in range(k+1):
-            shape = "doublecircle" if i == n else "circle"
-            penwidth = "4" if i == n in accepted else "1.6"
-            style =  "filled" if (i, j) in accepted else ""
-            color =  green if (i, j) in accepted else black
-            f.node(str((i, j)), color = color, penwidth = penwidth, style=style, fontsize = "20", shape = shape, pos = "{},{}!".format(i*10, j*10))
+    for s in nfa.states:
+        i , j = eval(s)
+        accepted = s in nfa.final_states 
+        shape = "doublecircle" if accepted else "circle"
+        penwidth = "4" if accepted else "1.6"
+        style =  "filled" if accepted else ""
+        color =  green if accepted else black
+        f.node(str((i, j)), color = color, penwidth = penwidth, style=style, fontsize = "20", shape = shape)
     # transitions
     f.attr('node', shape='circle')
-    for i in range(n + 1):
-        for j in range(k + 1):
-            if j < k: # up
-                f.edge(str((i, j)), str((i, j + 1)), label="*", fontsize="20", color=blue, penwidth="2")
-            if i < n: # ->
-                f.edge(str((i, j)), str((i + 1, j)), label=word[i], fontsize="30", penwidth="2")
-            if i < n and j < k: # diag
-                f.edge(str((i, j)), str((i + 1, j + 1)), label="*", fontsize="24", color=light_purple, penwidth="2")
-                f.edge(str((i, j)), str((i + 1, j + 1)), label="<&#949;>", fontsize = "24", color="red", penwidth="2")
+    for s in nfa.states:
+        i, e = eval(s)
+        remain = k - e
+        if remain >= lev.c_insert:
+            f.edge(s, str((i, e + lev.c_insert)), label="*", fontsize="30", color=blue, penwidth="2")
+        if i >= n: continue
+        f.edge(s, str((i + 1, e)), label=word[i], fontsize="30", penwidth="2")
+        if remain >= lev.c_subs:
+            f.edge(s, str((i + 1, e + lev.c_subs)), label="*", fontsize="30", color=light_purple, penwidth="2")
+        if remain >= lev.c_delete:
+            f.edge(s, str((i + 1, e + lev.c_delete)), label="<&#949;>", fontsize="20", color=red, penwidth="2")
+
+
     f.format = kargs.get("format", "svg")
-    f.rotate = 180
     f.render()
 
-def render_weighted_dfa_walker(lev_w, w, k):
-    """walk dfa on string w
-    Args:
-        dfa:
 
-    Return:
-    """
-    outputs = []
-    step = 0
-    dfa = construct_levenshten(lev_w, k)
-    s = dfa.initial_state
-    acc_s = ""
-    for i, ch in enumerate(w):
-        fname = "{}_{}_{}_{}".format(lev_w, w, k, step)
-        s = dfa.transitions[s][ch]
-        acc_s += ch
-        next_states = eval(s)
-        if not next_states:
-            outputs.append((acc_s, None))
-            return outputs
-        draw_lev_nfa(lev_w, k, fname = fname, accepted = next_states)
-        outputs.append((acc_s, fname))
-        step += 1
-    return outputs
+draw_weighted_lev_nfa(w, k, fname = "weighted_dfa")

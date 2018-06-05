@@ -17,6 +17,10 @@ class WeighedLevTrieGenerator(LevTrieDFAGenerator):
         WeightedGenerator.__init__(self, costs)
 
     def construct_levenshten(self, word, k):
+        nfa = self.construct_levenshten_nfa(word, k)
+        return DFA.from_nfa(nfa)
+
+    def construct_levenshten_nfa(self, word, k):
         """
         Args:
             word:
@@ -60,7 +64,7 @@ class WeighedLevTrieGenerator(LevTrieDFAGenerator):
                   initial_state = m[(0, 0)],\
                   final_states = {m[(n, j)] for j in range(k + 1)},\
                   input_symbols = set(ALPHABETS))
-        return DFA.from_nfa(nfa)
+        return nfa 
 
 
     def gen_candidates(self, w, k):
