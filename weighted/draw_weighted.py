@@ -9,7 +9,7 @@ from graphviz import Digraph
 weighted_cost = [1, 2, 3]
 
 w = "data"
-k = 3
+k = 2
 
 def draw_weighted_lev_nfa(word, k, **kargs):
     """

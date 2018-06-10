@@ -34,10 +34,10 @@ def render(w, test_w, k):
     sections = []
     for (t, f) in figures:
         fig  = "{}.svg".format(f) if f is not None else NOT_FOUND
-        curr_sec = section_template.substitute(title = t, fig = fig)
+        curr_sec = section_template.substitute(title = t, fig = fig, w = "100" if f is not None else "70")
         sections.append(curr_sec)
     if figures[-1][1] is not None:
-        curr_sec = section_template.substitute(title = "Success", fig = SUCCESS)
+        curr_sec = section_template.substitute(title = "Success", fig = SUCCESS, w = "46")
         sections.append(curr_sec)
 
     body_html = "\n".join(sections) 

@@ -20,7 +20,7 @@ w = 0.3
 ax.bar(xs - w/2, scale_down(naive), width = w, color=blue, align='center')
 ax.bar(xs + w/2, scale_down(lev), width = w, color=light_purple, align='center')
 
-ax.set_ylabel("runtime: log$(1 + t)$ /ms", fontsize=12)
+ax.set_ylabel("runtime: log$(1 + t)$ / s", fontsize=12)
 ax.set_xlabel("Edit Distance: $k$", fontsize=12)
 force_axis_integer(ax)
 
