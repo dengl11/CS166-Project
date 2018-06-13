@@ -31,3 +31,11 @@ data date 1
 <img src = "./doc/res/walker/3.png" style="width:800px"/>
 <img src = "./doc/res/walker/4.png" style="width:800px"/>
 </div>
+
+
+#### Critique
+
+```  
+Should explore more about practical spell correction practice, like the BK Tree, instead of just comparing with the naive approach
+```  
+
