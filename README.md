@@ -35,7 +35,5 @@ data date 1
 
 #### Critique
 
-```  
-Should explore more about practical spell correction practice, like the BK Tree, instead of just comparing with the naive approach
-```  
+> Should explore more about practical spell correction practice, like the BK Tree, instead of just comparing with the naive approach
 
