@@ -26,8 +26,8 @@ data date 1
 ```  
 
 <div style="text-align:center">
-<img src = ./doc/res/walker/1.png" style="width:400px"/>
-<img src = ./doc/res/walker/2.png" style="width:400px"/>
-<img src = ./doc/res/walker/3.png" style="width:400px"/>
-<img src = ./doc/res/walker/4.png" style="width:400px"/>
+<img src = "./doc/res/walker/1.png" style="width:800px"/>
+<img src = "./doc/res/walker/2.png" style="width:800px"/>
+<img src = "./doc/res/walker/3.png" style="width:800px"/>
+<img src = "./doc/res/walker/4.png" style="width:800px"/>
 </div>
